@@ -20,3 +20,4 @@ exclude *.yml
 exclude .gitignore
 exclude noxfile.py
 exclude .gitattributes
+exclude renovate.json
