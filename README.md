@@ -41,10 +41,29 @@ working, unchanged. An example of a similar concept for OPeNDAP access to Icechu
 
 ## Status
 
-Working end to end against both clients, on synthetic data and on real NOAA CEFI
-model output served from Icechunk via Earthmover Flux. Not production software:
-[no authentication](#access-control), no tabledap yet, a partial file-type list, and the catalog is built eagerly
-at first request.
+Working end to end against erddapy, rerddap and rerddapXtracto, on synthetic
+data and on real NOAA CEFI model output served from Icechunk via Earthmover
+Flux. CI runs the clients against a live server, runs the users' own tutorial
+steps, and compares responses with captures from real ERDDAP servers. It has
+not yet run as a production service.
+
+**Stable: what client code sees.** The URLs, query syntax, responses and
+errors under [What is implemented](#what-is-implemented) copy ERDDAP's, so
+they change only to match ERDDAP more closely; a change that breaks client
+code is a bug. DatasetIDs follow a fixed rule, the dataset's id then the group
+path ([below](#one-erddap-root-per-dataset-or-per-group)).
+
+**May change before 1.0: the Python side.** `ErddapPlugin`'s options and their
+defaults, and the hooks a host uses (`name_dataset`, the catalog cache). The
+release notes will say when one changes.
+
+**Not there yet:** [authentication](#access-control), which is left to the
+host; tabledap ([#99](https://github.com/xpublish-community/xpublish-erddap/issues/99));
+more file types ([#6](https://github.com/xpublish-community/xpublish-erddap/issues/6)).
+The server-wide `/erddap` opens every dataset on its first request (4.5 s for
+1000 small datasets), so a host with thousands of stores behind a slow
+provider should use the per-dataset roots
+([docs/hosting.md](https://github.com/xpublish-community/xpublish-erddap/blob/main/docs/hosting.md)).
 
 ## Access control
 
