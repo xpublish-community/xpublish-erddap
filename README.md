@@ -1,7 +1,7 @@
 # xpublish-erddap
 
-[![tests](https://github.com/eeholmes/xpublish-erddap/actions/workflows/tests.yml/badge.svg)](https://github.com/eeholmes/xpublish-erddap/actions/workflows/tests.yml)
-[![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://github.com/eeholmes/xpublish-erddap/blob/main/LICENSE.txt)
+[![tests](https://github.com/xpublish-community/xpublish-erddap/actions/workflows/tests.yml/badge.svg)](https://github.com/xpublish-community/xpublish-erddap/actions/workflows/tests.yml)
+[![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://github.com/xpublish-community/xpublish-erddap/blob/main/LICENSE.txt)
 
 An ERDDAP-compatible `griddap` router for [Xpublish](https://github.com/xpublish-community/xpublish),
 so that existing **[erddapy](https://ioos.github.io/erddapy/)** and
@@ -80,7 +80,7 @@ Xpublish finds the plugin through its `xpublish.plugin` entry point, or you
 can pass `ErddapPlugin()` explicitly as below. To read Zarr or Icechunk
 stores, also install what xarray needs for them (`zarr`, `icechunk`). Until
 the first release is on PyPI, install from GitHub:
-`python -m pip install git+https://github.com/eeholmes/xpublish-erddap.git`.
+`python -m pip install git+https://github.com/xpublish-community/xpublish-erddap.git`.
 
 ## Usage
 
@@ -145,10 +145,10 @@ which never changes: for a store that changes in place, put a version in
 `_xpublish_id` or set `ErddapPlugin(catalog_max_age_s=600)` to rebuild at least
 every 10 minutes. The server-wide `/erddap` checks the one dataset a data or
 `info` request is for on every request, and checks every dataset for its
-listings and search at most every 10 seconds (`catalog_check_s`). Details: [docs/hosting.md](https://github.com/eeholmes/xpublish-erddap/blob/main/docs/hosting.md).
+listings and search at most every 10 seconds (`catalog_check_s`). Details: [docs/hosting.md](https://github.com/xpublish-community/xpublish-erddap/blob/main/docs/hosting.md).
 
 **Running the plugin in a host such as Earthmover Flux?** See
-[docs/hosting.md](https://github.com/eeholmes/xpublish-erddap/blob/main/docs/hosting.md) for the choices it makes about routing,
+[docs/hosting.md](https://github.com/xpublish-community/xpublish-erddap/blob/main/docs/hosting.md) for the choices it makes about routing,
 naming and URLs, and what to change if yours differs.
 
 ### Limiting response size
@@ -177,14 +177,14 @@ variable is safe.
 
 | Endpoint | Purpose |
 | --- | --- |
-| `/erddap/griddap/{id}.{ext}?{query}` | data; `ext` in `nc, ncml, csv, csvp, csv0, json, das, dds, dods`. With `.dds`, `.das` and `.dods` the bare griddap URL is an OPeNDAP URL, so `xr.open_dataset("<server>/erddap/griddap/<id>")` (netCDF-C or pydap) and erddapy's `response="opendap"` work, as on ERDDAP ([#2](https://github.com/eeholmes/xpublish-erddap/issues/2)) |
+| `/erddap/griddap/{id}.{ext}?{query}` | data; `ext` in `nc, ncml, csv, csvp, csv0, json, das, dds, dods`. With `.dds`, `.das` and `.dods` the bare griddap URL is an OPeNDAP URL, so `xr.open_dataset("<server>/erddap/griddap/<id>")` (netCDF-C or pydap) and erddapy's `response="opendap"` work, as on ERDDAP ([#2](https://github.com/xpublish-community/xpublish-erddap/issues/2)) |
 | `/erddap/griddap/index.{csv,json}`, `/erddap/info/index.{csv,json}` | dataset catalog, in ERDDAP's 15 columns (as on coastwatch.noaa.gov); links to services this plugin does not offer are empty |
 | `/erddap/tabledap/index.{csv,json}` | empty catalog (rerddap needs it to classify a dataset) |
 | `/erddap/info/{id}/index.{csv,json}` | variable and attribute table |
-| `/erddap/info/{id}/index.html` | a minimal page (title and links), not ERDDAP's: rerddapXtracto's `safe_info()` and rerddap's `browse()` request this URL and need it to exist ([#62](https://github.com/eeholmes/xpublish-erddap/issues/62)) |
+| `/erddap/info/{id}/index.html` | a minimal page (title and links), not ERDDAP's: rerddapXtracto's `safe_info()` and rerddap's `browse()` request this URL and need it to exist ([#62](https://github.com/xpublish-community/xpublish-erddap/issues/62)) |
 | `/erddap/search/index.{csv,json}`, `/erddap/search/advanced.{csv,json}` | search, as ERDDAP's default ("original") engine: every word must appear, `"quoted phrases"`, `-word` to exclude, ranked by where the words appear; `searchFor=all` lists every dataset. Advanced search also filters by `protocol`, the category attributes (`institution`, `keywords`, `ioos_category`, `long_name`, `standard_name`, `variableName`, `cdm_data_type`) and lon/lat/time bounds; `page` and `itemsPerPage` work |
 | `/erddap/categorize/index.{csv,json}`, `/erddap/categorize/{attribute}/index.{csv,json}`, `/erddap/categorize/{attribute}/{value}/index.{csv,json}` | browse by category (erddapy's `get_categorize_url()`), as ERDDAP's default `categoryAttributes`: `cdm_data_type`, `institution`, `ioos_category`, `keywords`, `long_name`, `standard_name`, `variableName`. The first level lists the attributes, the second their values (lower case, file-name safe, `_null` where a dataset has none), the third the datasets with that value, in the dataset table, by title. A value in the wrong case redirects to the lower-case one; an unknown attribute or value is ERDDAP's 404 |
-| `/erddap/convert/*` | refused at once with ERDDAP's 404 for a server whose converters are switched off (`The "convert" system has been disabled on this ERDDAP.`); interpolate is a future extension ([#98](https://github.com/eeholmes/xpublish-erddap/issues/98)). rerddapXtracto's `rxtracto(interp=...)` still retries any non-200 answer 11 times (about 33 s) before giving up |
+| `/erddap/convert/*` | refused at once with ERDDAP's 404 for a server whose converters are switched off (`The "convert" system has been disabled on this ERDDAP.`); interpolate is a future extension ([#98](https://github.com/xpublish-community/xpublish-erddap/issues/98)). rerddapXtracto's `rxtracto(interp=...)` still retries any non-200 answer 11 times (about 33 s) before giving up |
 | `/erddap/version` | version banner |
 
 Every route answers `HEAD` as well as `GET`, as ERDDAP does (erddapy's `check_url_response()` and rerddapXtracto's `safe_info()` use it); a data request is validated but its file is not built.
@@ -230,7 +230,7 @@ names. A store with `lat`/`lon`/`t` axes is served with ERDDAP's names
 (`rename_axes=True`, the default); `rename_axes=False` keeps the source names,
 and a dict gives your own mapping. Variable names ERDDAP cannot serve
 (`sst-anom`) are served as ERDDAP would name them (`sst_anom`). The rules are in
-[`docs/hosting.md`](https://github.com/eeholmes/xpublish-erddap/blob/main/docs/hosting.md#7-axis-and-variable-names).
+[`docs/hosting.md`](https://github.com/xpublish-community/xpublish-erddap/blob/main/docs/hosting.md#7-axis-and-variable-names).
 
 **Data is served as if ERDDAP's rules had been followed.** An ERDDAP server
 accepts a dataset only once it is formatted the way ERDDAP requires, so much
@@ -248,7 +248,7 @@ date that does not exist in the Gregorian calendar (Feb 30 in daily
 `360_day`) is refused. Real ERDDAP ignores the `calendar` attribute and serves
 such dates days or months off. A forecast lead time (`lead_time`, `step`) is
 served as numbers in its source units. The reasoning is in
-[#60](https://github.com/eeholmes/xpublish-erddap/issues/60).
+[#60](https://github.com/xpublish-community/xpublish-erddap/issues/60).
 
 **tabledap is in scope, as a future extension.** Much ERDDAP client code is
 observational (gliders, buoys, cruises) and calls `protocol="tabledap"`, so
@@ -257,8 +257,8 @@ model, though: rows with filter predicates (`&time>=...&latitude<50`) rather
 than n-dimensional arrays, so it will need its own source type (Parquet,
 DuckDB, or CF-DSG Icechunk) rather than the griddap path. Until then
 `tabledap/index` answers as a server with no tabledap datasets. Tracked in
-[#99](https://github.com/eeholmes/xpublish-erddap/issues/99); decided in
-[#7](https://github.com/eeholmes/xpublish-erddap/issues/7).
+[#99](https://github.com/xpublish-community/xpublish-erddap/issues/99); decided in
+[#7](https://github.com/xpublish-community/xpublish-erddap/issues/7).
 
 ## Demos
 
@@ -268,16 +268,16 @@ and `demo/demo_cefi.R` exercise the R client.
 
 ## Reuse and citation
 
-This work is released under the [BSD 3-Clause License](https://github.com/eeholmes/xpublish-erddap/blob/main/LICENSE.txt), matching
+This work is released under the [BSD 3-Clause License](https://github.com/xpublish-community/xpublish-erddap/blob/main/LICENSE.txt), matching
 the other Xpublish plugins (`xpublish-opendap`, `xpublish-edr`, `xpublish-wms`),
-so that it can be contributed to
+as befits a package in
 [xpublish-community](https://github.com/xpublish-community). You are free to use,
 copy, modify, and redistribute it, including commercially. If you use it in
 published work, in a presentation, or in another repository, please give
 attribution:
 
 > Holmes, E.E. (2026). *xpublish-erddap: ERDDAP-compatible griddap router for Xpublish*.
-> https://github.com/eeholmes/xpublish-erddap
+> https://github.com/xpublish-community/xpublish-erddap
 
 ## Development
 
