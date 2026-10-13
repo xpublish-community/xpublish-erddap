@@ -33,10 +33,10 @@ test = ["erddapy", "httpx", "netCDF4", "pooch", "pytest", "pytest-xprocess", "uv
 demo = ["netCDF4", "pooch", "pydap", "uvicorn"]
 
 [project.urls]
-Homepage = "https://github.com/eeholmes/xpublish-erddap"
-Source = "https://github.com/eeholmes/xpublish-erddap"
-Issues = "https://github.com/eeholmes/xpublish-erddap/issues"
-Documentation = "https://github.com/eeholmes/xpublish-erddap/blob/main/docs/hosting.md"
+Homepage = "https://github.com/xpublish-community/xpublish-erddap"
+Source = "https://github.com/xpublish-community/xpublish-erddap"
+Issues = "https://github.com/xpublish-community/xpublish-erddap/issues"
+Documentation = "https://github.com/xpublish-community/xpublish-erddap/blob/main/docs/hosting.md"
 
 [project.entry-points."xpublish.plugin"]
 erddap = "xpublish_erddap.plugin:ErddapPlugin"

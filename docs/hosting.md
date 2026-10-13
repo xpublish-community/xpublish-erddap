@@ -8,7 +8,7 @@ data moves to Zarr/Icechunk, with only the server URL changed.
 We built and tested against **a stand-in for Flux's routing**, not Flux itself.
 Where we had to guess how a host works, we made a choice and listed it below,
 with what to change if yours differs. Discussion: issue
-[#18](https://github.com/eeholmes/xpublish-erddap/issues/18).
+[#18](https://github.com/xpublish-community/xpublish-erddap/issues/18).
 
 ## What the plugin provides
 
@@ -242,7 +242,7 @@ serves only those).
 ### 6. OPeNDAP binary (`.dods`)
 
 The plugin serves `.dods` as ERDDAP does (issue
-[#2](https://github.com/eeholmes/xpublish-erddap/issues/2)), so the griddap URL
+[#2](https://github.com/xpublish-community/xpublish-erddap/issues/2)), so the griddap URL
 is itself an OPeNDAP URL: many CoastWatch tutorials call
 `xr.open_dataset("<server>/erddap/griddap/<id>")`. This is separate from a
 `/opendap` endpoint the host may serve beside it (xpublish-opendap): the two

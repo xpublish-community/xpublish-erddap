@@ -9,8 +9,8 @@ ERDDAP servers to Zarr/Icechunk on Earthmover Arraylake, that code should
 keep working with only the server URL changed. **Client compatibility, not an
 ERDDAP replacement:** no UI, no images; tabledap is in scope as a future extension (#99, decided on #7).
 
-- Public at https://github.com/eeholmes/xpublish-erddap; the aim is to
-  **donate it to xpublish-community**.
+- Lives at https://github.com/xpublish-community/xpublish-erddap: Alex Kerney
+  transferred it there from `eeholmes/xpublish-erddap` (confirmed 2026-10-13).
 - **BSD-3-Clause on purpose** (matches the xpublish plugins; overrides the
   NOAA Apache-2.0 default). Do not flag or change it.
 - `~/xpublish-opendap` is a **reference-only** clone. Do not modify it.

@@ -8,7 +8,7 @@ Parameters:
   GitRef:
     Type: String
     Default: main
-    Description: Branch, tag or commit of github.com/eeholmes/xpublish-erddap to run.
+    Description: Branch, tag or commit of github.com/xpublish-community/xpublish-erddap to run.
   TokenParameter:
     Type: String
     Default: /xpublish-erddap-demo/arraylake-token
@@ -96,7 +96,7 @@ Resources:
             useradd --system --create-home --home-dir /var/lib/xpe xpe
 
             # The app: this repo at GitRef, in its own venv.
-            git clone https://github.com/eeholmes/xpublish-erddap /opt/xpublish-erddap
+            git clone https://github.com/xpublish-community/xpublish-erddap /opt/xpublish-erddap
             git -C /opt/xpublish-erddap checkout ${GitRef}
             python3.12 -m venv /opt/venv
             /opt/venv/bin/pip install --upgrade pip
