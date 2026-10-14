@@ -34,10 +34,11 @@ ERDDAP replacement:** no UI, no images; tabledap is in scope as a future extensi
   installed from PyPI into a clean venv and smoke-tested. The classifier is
   `4 - Beta` (#126), and the README says what is stable (#125). Releases: create
   a GitHub release, EH approves the deployment, then check it in a clean venv.
-- **⚠ Tag style:** the tag is `v0.1.0`, but #66 had decided bare tags
-  (`0.1.0`), as xpublish, opendap and wms use. EH agreed to `v0.1.0`
-  without being reminded of that decision. Ask her which style to use from
-  0.1.1 on; do not rewrite the published tag.
+- **⚠ Next release uses a bare tag (`0.1.1`, `0.2.0`), never `v…`.** EH
+  decided this on 2026-10-14 and asked for it to be written here because she
+  will forget. If she asks for `v0.x.y`, remind her. This matches #66 and the
+  siblings (xpublish, opendap, wms). The first tag, `v0.1.0`, is the one
+  exception: a mistake, left as published, so do not rewrite it.
 - **CI is 12 checks:** Codecov now posts `codecov/patch` and
   `codecov/project` (#72 closed, #124 passes `CODECOV_TOKEN`; tokenless
   uploads also worked in the org). **Renovate** is on (#122) and opens
