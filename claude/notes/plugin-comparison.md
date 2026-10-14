@@ -197,7 +197,7 @@ Ordered by what blocks a donation first.
 6. **Done (#36).** **ERDDAP-shaped error bodies** (#36) (investigate first): check whether erddapy
    or rerddap surface the body; if so, copy ogc-core's `APIRoute` pattern and
    make parity tests compare error text.
-7. **After a PyPI release** (#37): conda-forge recipe, PyPI/conda badges, PR to
+7. **In progress (#37): 0.1.0 is on PyPI (2026-10-14); conda-forge is next, later; see #37.** After a PyPI release (#37): conda-forge recipe, PyPI/conda badges, PR to
    xpublish's `ecosystem/index.md`. README: an endpoint table like zarr's and
    a line on how this differs from the 2022 experiment.
 
