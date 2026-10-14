@@ -1,6 +1,7 @@
 # xpublish-erddap
 
 [![tests](https://github.com/xpublish-community/xpublish-erddap/actions/workflows/tests.yml/badge.svg)](https://github.com/xpublish-community/xpublish-erddap/actions/workflows/tests.yml)
+[![PyPI](https://img.shields.io/pypi/v/xpublish-erddap)](https://pypi.org/project/xpublish-erddap/)
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://github.com/xpublish-community/xpublish-erddap/blob/main/LICENSE.txt)
 
 An ERDDAP-compatible `griddap` router for [Xpublish](https://github.com/xpublish-community/xpublish),
@@ -97,8 +98,8 @@ This installs the plugin with its dependencies (`xpublish`, `fastapi`,
 `xarray`, `pandas`, `numpy`, `scipy`); it needs Python 3.11 or newer.
 Xpublish finds the plugin through its `xpublish.plugin` entry point, or you
 can pass `ErddapPlugin()` explicitly as below. To read Zarr or Icechunk
-stores, also install what xarray needs for them (`zarr`, `icechunk`). Until
-the first release is on PyPI, install from GitHub:
+stores, also install what xarray needs for them (`zarr`, `icechunk`). For
+unreleased changes, install from GitHub:
 `python -m pip install git+https://github.com/xpublish-community/xpublish-erddap.git`.
 
 ## Usage
