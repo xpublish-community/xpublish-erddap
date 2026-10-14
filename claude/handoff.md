@@ -24,6 +24,27 @@ ERDDAP replacement:** no UI, no images; tabledap is in scope as a future extensi
   `ErddapPlugin(name_dataset=...)`; group routing; caching on `_xpublish_id`;
   URLs). EH has it to send; Flux's real internals are still unknown.
 
+## Moved and released (2026-10-13/14)
+
+- **Transfer done:** origin is `xpublish-community/xpublish-erddap` (EH has
+  ADMIN, but is not an owner of the org). Old URLs replaced (#123).
+- **v0.1.0 on PyPI** (2026-10-14) through trusted publishing. EH registered a
+  pending publisher from her own PyPI account. The GitHub `pypi` environment
+  requires EH as reviewer, so every upload waits for her approval. It was
+  installed from PyPI into a clean venv and smoke-tested. The classifier is
+  `4 - Beta` (#126), and the README says what is stable (#125). Releases: create
+  a GitHub release, EH approves the deployment, then check it in a clean venv.
+- **⚠ Next release uses a bare tag (`0.1.1`, `0.2.0`), never `v…`.** EH
+  decided this on 2026-10-14 and asked for it to be written here because she
+  will forget. If she asks for `v0.x.y`, remind her. This matches #66 and the
+  siblings (xpublish, opendap, wms). The first tag, `v0.1.0`, is the one
+  exception: a mistake, left as published, so do not rewrite it.
+- **CI is 12 checks:** Codecov now posts `codecov/patch` and
+  `codecov/project` (#72 closed, #124 passes `CODECOV_TOKEN`; tokenless
+  uploads also worked in the org). **Renovate** is on (#122) and opens
+  dependency PRs. `renovate.json` is excluded in `MANIFEST.in`, or
+  check-manifest fails.
+
 ## Repo state (2026-10-09, after the test-suite review #110–#114)
 
 - **Public test server, live until 2026-11-13:**
@@ -61,7 +82,7 @@ ERDDAP replacement:** no UI, no images; tabledap is in scope as a future extensi
 - **Shipped 2026-10-07:** #34, #18 (per-group root, `docs/hosting.md`), #3,
   #27/#4 (`search.py`, ported), #35, #36 (`errors.py`), #45/#46; 2026-10-06:
   #32, #33, #40.
-- **CI, 10 checks (since #112):** `run` on Ubuntu × 3.12/3.13/3.14 plus
+- **CI, 10 checks (since #112; 12 with Codecov's since 2026-10-13):** `run` on Ubuntu × 3.12/3.13/3.14 plus
   macOS and Windows on 3.14 only (Windows skips every live-server test),
   `min-deps` (3.11, lowest versions), `package`, `rerddap`, `erddapy-3-1`
   (erddapy pinned to 3.1.0; only files that `import erddapy` or
@@ -117,9 +138,8 @@ ERDDAP replacement:** no UI, no images; tabledap is in scope as a future extensi
   attributes with `_null`, no redirect for a bare URL). Later on
   2026-10-09: #70 (PR #101: every `convert/*` answers ERDDAP's "convert
   system disabled" 404; `rxtracto(interp=...)` still retries ~33 s, only #98
-  fixes that) and #7 (PR #100, README). #69 shipped late 2026-10-09 (PR #108, below). **Left of #68–#72:** #72
-  (EH: wait until the repo is in xpublish-community, then use the org's
-  Codecov). The ordered table is
+  fixes that) and #7 (PR #100, README). #69 shipped late 2026-10-09 (PR #108, below). #72 closed 2026-10-14
+  (#124). The ordered table is
   the last-but-one comment on #50; method and what was found fine:
   `notes/audit-2026-10.md`.
 
@@ -193,14 +213,17 @@ run the R tests: `notes/dev-environment.md`.
 
 ## Open threads (a record, not a task list)
 
-- **#37, first release and listing: after the move** to xpublish-community
-  (EH, 2026-10-09; PyPI trusted publishing is tied to the repo owner).
-  Decided 2026-10-09 (#66): bare tags (`0.1.0`, like the siblings); the
-  publish workflow uses `environment: pypi`; the GitHub `pypi` environment and
-  the PyPI trusted publisher wait until after the move (now decided). README's `git+https` install line goes at the first release.
-  `xpublish-erddap` is free on PyPI and conda-forge (checked 2026-10-07).
-  Outward steps (PyPI pending publisher, tag, conda-forge staged-recipes, the
-  xpublish ecosystem PR) each need EH's yes.
+- **#37, what's left after 0.1.0** (the issue body is current):
+  - PyPI badge merged (#127).
+  - **conda-forge recipe is the next step, and EH wants it later.** It is a
+    `meta.yaml` PR to `conda-forge/staged-recipes`, another org's repo, so ask
+    first. On 2026-10-14 EH asked what conda-forge is; explain it again plainly
+    if it comes up. Once the package exists, add the conda badges to the README
+    and to the xpublish ecosystem page.
+  - xpublish ecosystem-page PR: **xpublish-community/xpublish#361**, opened
+    2026-10-14 from EH's fork `eeholmes/xpublish`, with a PyPI badge only.
+    Upstream's maintainers merge it; EH has read-only access there.
+  - Not decided: PyPI co-owners (add Alex?).
 - **#53** (EH's, `future`): research ERDDAP proxying us via `EDD*FromErddap`.
   Direct Icechunk support in ERDDAP itself (was #54) moved to EH's fork,
   `eeholmes/erddap` issue #1.
@@ -224,9 +247,8 @@ run the R tests: `notes/dev-environment.md`.
   with the router, not cachey (1 MB default evicted it; not thread-safe).
   N=200, 50 ms provider: 10.6 s -> 0.02-0.06 s. Benchmark
   `benchmarks/benchmark_server_catalog.py`; details in `design-and-history.md`.
-- **Next, as EH planned it (2026-10-09), before the move to
-  xpublish-community:** re-share the collaborator kit (it passes against the
-  redeployed server; the copy collaborators have still uses `lat`/`lon`). Possibly, after the move and with EH's yes: an upstream
+- **Collaborator kit:** re-share it (it passes against the redeployed
+  server; the copy collaborators have still uses `lat`/`lon`). Possibly, with EH's yes: an upstream
   issue that xpublish-opendap 0.2.0 likely fails to import in a fresh env
   (its `opendap-protocol<1.2.0` needs `pkg_resources`; not run).
 - **`time_precision`:** not honoured, EH's decision (2026-10-09, "no for
@@ -245,8 +267,7 @@ run the R tests: `notes/dev-environment.md`.
   coverage unchanged, tests reworded for outside contributors, benchmark in
   `benchmarks/`. Decisions and traps: `notes/test-audit-2026-10.md`
   ("Outcome").
-- **No open issue is pre-move work now.** `future` (IOOS hackathon): #6,
-  #53, #98, #99, #105. `after-move` (label made 2026-10-09; other
-  post-transfer work): #37, #72.
+- **Open issues:** `future` (IOOS hackathon): #6, #53, #98, #99, #105.
+  `after-move`: #37 only (#72 closed 2026-10-14).
 - **Raw Zarr attributes through a real ERDDAP** (Docker in Actions): not
   covered; needs its own issue first.
