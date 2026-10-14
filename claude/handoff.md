@@ -214,17 +214,16 @@ run the R tests: `notes/dev-environment.md`.
 ## Open threads (a record, not a task list)
 
 - **#37, what's left after 0.1.0** (the issue body is current):
-  - PR #127 (PyPI badge; the `git+https` line kept for unreleased changes):
-    open, CI green, waiting for EH to say merge.
+  - PyPI badge merged (#127).
   - **conda-forge recipe is the next step, and EH wants it later.** It is a
     `meta.yaml` PR to `conda-forge/staged-recipes`, another org's repo, so ask
     first. On 2026-10-14 EH asked what conda-forge is; explain it again plainly
-    if it comes up.
-  - xpublish ecosystem-page bullet: suggested, and waiting for EH's go-ahead.
-    The exact text is on #37. EH has read-only access to xpublish, so the PR
-    comes from an `eeholmes/xpublish` fork. Alex added the last plugin (#236)
-    himself.
-  - Not decided: PyPI co-owners (add Alex?) and the tag style above.
+    if it comes up. Once the package exists, add the conda badges to the README
+    and to the xpublish ecosystem page.
+  - xpublish ecosystem-page PR: **xpublish-community/xpublish#361**, opened
+    2026-10-14 from EH's fork `eeholmes/xpublish`, with a PyPI badge only.
+    Upstream's maintainers merge it; EH has read-only access there.
+  - Not decided: PyPI co-owners (add Alex?).
 - **#53** (EH's, `future`): research ERDDAP proxying us via `EDD*FromErddap`.
   Direct Icechunk support in ERDDAP itself (was #54) moved to EH's fork,
   `eeholmes/erddap` issue #1.
